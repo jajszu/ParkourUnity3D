@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Fighter
 {
-
-    private float inputX;
-    // Start is called before the first frame update
 
 
     void Start()
@@ -17,6 +14,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        inputX = Input.GetAxisRaw("Horizontal");
+
     }
 }
