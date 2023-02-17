@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    private float inputX;
+    // Start is called before the first frame update
+
+
     void Start()
     {
-        //przypisuj¹c gracza do tej zmiennej bêdziemy mogli siê do niego odwo³aæ z ka¿dego skryptu
+        //przypisujÅ¡c gracza do tej zmiennej bÄ™dziemy mogli siÄ™ do niego odwoÅ‚aÄ‡ z kaÅ¼dego skryptu
         GameManager.instance.player = this;
     }
 
     void Update()
     {
-        
+        inputX = Input.GetAxisRaw("Horizontal");
     }
 }
