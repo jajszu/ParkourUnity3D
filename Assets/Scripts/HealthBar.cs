@@ -29,8 +29,8 @@ public class HealthBar : MonoBehaviour
     {
         Debug.Log("function ran" + hp + " " + maxHp);
 
-        slider.value = hp;
         slider.maxValue = maxHp;
+        slider.value = hp;
     }
 
     private void OnDestroy()
