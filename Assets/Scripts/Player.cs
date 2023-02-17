@@ -5,9 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    private float inputX;
+    private Vector2 input;
     // Start is called before the first frame update
 
+    private void Awake()
+    {
+        
+    }
 
     void Start()
     {
@@ -17,6 +21,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        inputX = Input.GetAxisRaw("Horizontal");
+        input.x = Input.GetAxisRaw("Horizontal");
+        input.y = Input.GetAxisRaw("Vertical");
     }
 }
