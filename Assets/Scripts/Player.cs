@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        //przypisuj¹c gracza do tej zmiennej bêdziemy mogli siê do niego odwo³aæ z ka¿dego skryptu
+        GameManager.instance.player = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
