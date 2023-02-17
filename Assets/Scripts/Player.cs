@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : Fighter
 {
-    // Start is called before the first frame update
-
     private CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;

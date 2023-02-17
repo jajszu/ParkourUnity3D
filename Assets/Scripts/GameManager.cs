@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
         }
         //spawn gracza
         player = Instantiate(playerPrefab, playerSpawnPoint).GetComponent<Player>();
-        Debug.Log(player.hp + " " + player.maxHp);
         healthBar.UpdateUI(player.hp, player.maxHp);
+
         //domyœlnie jak przechodzimy do nowej sceny to wszystko co jest w poprzedniej scenie jest usuwane
         //dziêki tej funkcji game manager nie zostanie usuniêty
         DontDestroyOnLoad(gameObject);

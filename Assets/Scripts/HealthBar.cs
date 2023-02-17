@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("function ran");
+
         int[] hp = GameManager.instance.player.getHP();
 
         slider.value = hp[0];
@@ -27,6 +27,8 @@ public class HealthBar : MonoBehaviour
     }
     public void UpdateUI(int hp, int maxHp)
     {
+        Debug.Log("function ran" + hp + " " + maxHp);
+
         slider.value = hp;
         slider.maxValue = maxHp;
     }
