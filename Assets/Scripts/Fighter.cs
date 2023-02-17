@@ -16,4 +16,10 @@ public abstract class Fighter : MonoBehaviour
         hp -= amount;
         if(hp< 0) hp = 0;
     }
+
+    public int[] getHP()
+    {
+        int[] a = { hp, maxhp };
+        return a;
+    }
 }
