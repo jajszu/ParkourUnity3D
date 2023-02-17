@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void MyEventHandler();
+    public event MyEventHandler updateUI;
     public static GameManager instance;
     public Player player;
     void Awake()
@@ -23,8 +25,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
+    public void InvokeUpdateUI()
     {
-        
+        updateUI?.Invoke();
     }
 }

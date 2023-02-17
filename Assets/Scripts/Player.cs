@@ -26,6 +26,7 @@ public class Player : Fighter
     {
         //przypisujšc gracza do tej zmiennej będziemy mogli się do niego odwołać z każdego skryptu
         GameManager.instance.player = this;
+        
     }
 
     void Update()
