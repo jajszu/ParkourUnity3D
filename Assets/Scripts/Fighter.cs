@@ -4,10 +4,8 @@ using UnityEngine;
 
 public abstract class Fighter : MonoBehaviour
 {
-    [SerializeField]
-    private int hp = 100;
-    [SerializeField]
-    private int maxhp = 100;
+    public int hp = 100;
+    public int maxHp = 100;
     [SerializeField]
     private int damage = 10;
 
@@ -19,7 +17,7 @@ public abstract class Fighter : MonoBehaviour
 
     public int[] getHP()
     {
-        int[] a = { hp, maxhp };
+        int[] a = { hp, maxHp };
         return a;
     }
 }

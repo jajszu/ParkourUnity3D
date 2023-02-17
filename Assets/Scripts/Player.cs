@@ -22,13 +22,6 @@ public class Player : Fighter
         controller= GetComponent<CharacterController>();
     }
 
-    void Start()
-    {
-        //przypisujšc gracza do tej zmiennej będziemy mogli się do niego odwołać z każdego skryptu
-        GameManager.instance.player = this;
-        
-    }
-
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);

@@ -8,6 +8,13 @@ public class GameManager : MonoBehaviour
     public event MyEventHandler updateUI;
     public static GameManager instance;
     public Player player;
+
+    [SerializeField]
+    private Transform playerSpawnPoint;
+    [SerializeField]
+    private GameObject playerPrefab;
+    [SerializeField]
+    private HealthBar healthBar;
     void Awake()
     {
         //to sprawia ¿e gdyby by³ w scenie drugi game manager to zostanie usuniêty
@@ -19,7 +26,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        //spawn gracza
+        player = Instantiate(playerPrefab, playerSpawnPoint).GetComponent<Player>();
+        Debug.Log(player.hp + " " + player.maxHp);
+        healthBar.UpdateUI(player.hp, player.maxHp);
         //domyœlnie jak przechodzimy do nowej sceny to wszystko co jest w poprzedniej scenie jest usuwane
         //dziêki tej funkcji game manager nie zostanie usuniêty
         DontDestroyOnLoad(gameObject);

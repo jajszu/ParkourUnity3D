@@ -12,35 +12,25 @@ public class HealthBar : MonoBehaviour
         slider = GetComponent<Slider>();
 
     }
-
-    void UpdateUI()
+    void Start()
     {
+        GameManager.instance.updateUI += UpdateUI;
+    }
+
+    public void UpdateUI()
+    {
+        Debug.Log("function ran");
         int[] hp = GameManager.instance.player.getHP();
 
         slider.value = hp[0];
         slider.maxValue = hp[1];
-
     }
-    // Start is called before the first frame update
-    void Start()
+    public void UpdateUI(int hp, int maxHp)
     {
-        GameManager.instance.updateUI += UpdateUI;
-
+        slider.value = hp;
+        slider.maxValue = maxHp;
     }
 
-    IEnumerator AfterStart()
-    {
-       
-            yield return new WaitForSeconds(1);
-          UpdateUI();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnDestroy()
     {
         GameManager.instance.updateUI -= UpdateUI;
