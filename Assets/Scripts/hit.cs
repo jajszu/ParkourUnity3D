@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class hit : MonoBehaviour
 {
-    // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<Player>().RecieveDamage(10);
-            GameManager.instance.InvokeUpdateUI();
+            other.GetComponent<Player>().RecieveDamage(GameManager.instance.player.maxHp);
         }
     }
 }
