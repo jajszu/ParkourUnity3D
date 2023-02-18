@@ -24,7 +24,7 @@ public class BatSpawner : MonoBehaviour
         while (spawning)
         {
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-            Instantiate(batPrefab, transform.position, Quaternion.identity);
+            Instantiate(batPrefab, spawners[Random.Range(0, spawners.Count)].position, Quaternion.identity);
         }
     }
 
