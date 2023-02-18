@@ -24,7 +24,10 @@ public class MouseManager : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        float zRotation = playerBody.GetComponent<Player>().GetZRot();
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0, zRotation);
         playerBody.Rotate(Vector3.up * mouseX);
+        
     }
 }
