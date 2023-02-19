@@ -8,6 +8,7 @@ public class Player : Fighter
 {
     public float speed = 12f;
     public float gravity = -20f;
+    public float wallRunGravity = -10f;
     public float jumpHeigh = 3f;
     public float groundDistance = 0.4f;
 
@@ -29,7 +30,11 @@ public class Player : Fighter
     private bool isWallLeft;
     [SerializeField]
     private bool isWallRight;
+    public bool isWallRunning;
     Vector3 velocity;
+
+    private float inputX;
+    private float inputY;
     private void Awake()
     {
         controller= GetComponent<CharacterController>();
@@ -50,22 +55,28 @@ public class Player : Fighter
         
 
 
-       float inputX = Input.GetAxisRaw("Horizontal");
-       float inputY = Input.GetAxisRaw("Vertical");
+       inputX = Input.GetAxisRaw("Horizontal");
+       inputY = Input.GetAxisRaw("Vertical");
 
         zRotation = 0f;
 
         if (isWallLeft && inputX<0)
         {
             inputY = 1f;
-            velocity.y = 0f;
+            velocity.y = -0.5f;
             zRotation= inputX;
+            isWallRunning = true;
         }
-        if (isWallRight && inputX > 0)
+        else if (isWallRight && inputX > 0)
         {
             inputY = 1f;
-            velocity.y = 0f;
+            velocity.y = -0.5f;
             zRotation = inputX;
+            isWallRunning = true;
+        }
+        else
+        {
+            isWallRunning= false;
         }
        
         Vector3 move = transform.right * inputX + transform.forward * inputY;
@@ -76,8 +87,9 @@ public class Player : Fighter
             velocity.y = Mathf.Sqrt(jumpHeigh * -2f * gravity);
         }
 
-
-        velocity.y += gravity * Time.deltaTime;
+        var currentGravity = isWallRunning ? wallRunGravity: gravity;
+        velocity.y += currentGravity * Time.deltaTime;
+        Debug.Log(velocity.y);
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -95,6 +107,6 @@ public class Player : Fighter
     }
     public float GetZRot()
     {
-        return zRotation*30f;
+        return zRotation * 30f;
     }
 }
