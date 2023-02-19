@@ -27,8 +27,6 @@ public class HealthBar : MonoBehaviour
     }
     public void UpdateUI(int hp, int maxHp)
     {
-        Debug.Log("function ran" + hp + " " + maxHp);
-
         slider.maxValue = maxHp;
         slider.value = hp;
     }
