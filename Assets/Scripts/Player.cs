@@ -84,9 +84,10 @@ public class Player : Fighter
     }
     protected override void Death()
     {
+        Camera.main.transform.parent = null;
         base.Death();
         GameManager.instance.GameOverScreen();
-
+    }
     public float GetZRot()
     {
         return zRotation*30f;
