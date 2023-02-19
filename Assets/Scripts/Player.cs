@@ -6,23 +6,30 @@ using UnityEngine;
 
 public class Player : Fighter
 {
-    private float zRotation;
-    private Transform playerBody;
-    private CharacterController controller;
-    public Transform groundCheck;
-    public Transform wallLeftCheck;
-    public Transform wallRightCheck;
-    public LayerMask groundMask;
-    public LayerMask wallMask;
-
     public float speed = 12f;
     public float gravity = -20f;
     public float jumpHeigh = 3f;
     public float groundDistance = 0.4f;
 
-    bool isGrounded;
-    bool isWallLeft;
-    bool isWallRight;
+    [SerializeField] 
+    private Transform groundCheck;
+    [SerializeField] 
+    private Transform wallLeftCheck;
+    [SerializeField] 
+    private Transform wallRightCheck;
+    [SerializeField] 
+    private LayerMask groundMask;
+    [SerializeField]
+    private LayerMask wallMask;
+    private float zRotation;
+    private Transform playerBody;
+    private CharacterController controller;
+
+    private bool isGrounded;
+    [SerializeField]
+    private bool isWallLeft;
+    [SerializeField]
+    private bool isWallRight;
     Vector3 velocity;
     private void Awake()
     {
