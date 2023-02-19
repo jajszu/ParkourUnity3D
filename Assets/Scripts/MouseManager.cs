@@ -8,6 +8,8 @@ public class MouseManager : MonoBehaviour
 
     public Transform playerBody;
 
+    [SerializeField] float wallRunRotationSpeed = 150;
+
     float xRotation = 0f;
     // Start is called before the first frame update
     void Start()
@@ -28,9 +30,16 @@ public class MouseManager : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        float zRotation = playerBody.GetComponent<Player>().GetZRot();
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0, zRotation);
+
+        float targetZRotation = playerBody.GetComponent<Player>().GetZRot();
+
+        Quaternion targetRotation = Quaternion.Euler(xRotation, 0, targetZRotation);
+
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, wallRunRotationSpeed * Time.deltaTime);
+
+
+
         playerBody.Rotate(Vector3.up * mouseX);
         
     }
