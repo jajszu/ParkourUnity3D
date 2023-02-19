@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public delegate void MyEventHandler();
     public event MyEventHandler updateUI;
-    public static GameManager instance;
     public Player player;
+
+    [HideInInspector]
+    public static GameManager instance;
 
     [SerializeField]
     private Transform playerSpawnPoint;
@@ -38,5 +40,13 @@ public class GameManager : MonoBehaviour
     public void InvokeUpdateUI()
     {
         updateUI?.Invoke();
+    }
+    public void GameOverScreen()
+    {
+        //wyœwietlanie przycisku replay
+    }
+    public void Replay()
+    {
+        //zaczynanie gry od nowa
     }
 }

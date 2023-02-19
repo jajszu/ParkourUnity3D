@@ -46,4 +46,15 @@ public class Player : Fighter
 
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public override void RecieveDamage(int amount)
+    {
+        base.RecieveDamage(amount);
+        GameManager.instance.InvokeUpdateUI();
+    }
+    protected override void Death()
+    {
+        base.Death();
+        GameManager.instance.GameOverScreen();
+    }
 }
