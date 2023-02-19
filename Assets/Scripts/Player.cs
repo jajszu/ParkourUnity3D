@@ -22,7 +22,6 @@ public class Player : Fighter
     [SerializeField]
     private LayerMask wallMask;
     private float zRotation;
-    private Transform playerBody;
     private CharacterController controller;
 
     private bool isGrounded;
@@ -33,7 +32,6 @@ public class Player : Fighter
     Vector3 velocity;
     private void Awake()
     {
-        playerBody= transform;
         controller= GetComponent<CharacterController>();
     }
 
