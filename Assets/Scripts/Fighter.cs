@@ -9,15 +9,22 @@ public abstract class Fighter : MonoBehaviour
     [SerializeField]
     private int damage = 10;
 
-    public void RecieveDamage(int amount)
+    public virtual void RecieveDamage(int amount)
     {
         hp -= amount;
-        if(hp< 0) hp = 0;
+        if (hp <= 0)
+        {
+            hp = 0;
+            Death();
+        }
     }
 
     public int[] getHP()
     {
-        int[] a = { hp, maxHp };
-        return a;
+        return new int[] { hp, maxHp };
+    }
+    protected virtual void Death()
+    {
+        Destroy(gameObject);
     }
 }
