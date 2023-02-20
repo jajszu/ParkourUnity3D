@@ -8,10 +8,6 @@ public class InGameView : View
     [SerializeField]
     private Slider slider;
 
-    void Start()
-    {
-        GameManager.instance.updateUI += UpdateUI;
-    }
 
     public void UpdateUI()
     {
@@ -27,10 +23,6 @@ public class InGameView : View
         slider.value = hp;
     }
 
-    private void OnDestroy()
-    {
-        GameManager.instance.updateUI -= UpdateUI;
-    }
 
     public override void Initialize()
     {
