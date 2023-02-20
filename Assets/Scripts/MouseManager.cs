@@ -34,6 +34,7 @@ public class MouseManager : MonoBehaviour
 
         float targetZRotation = playerBody.GetComponent<Player>().GetZRot();
 
+        transform.localRotation = Quaternion.Euler(xRotation, 0, transform.localEulerAngles.z);
         Quaternion targetRotation = Quaternion.Euler(xRotation, 0, targetZRotation);
 
         transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, wallRunRotationSpeed * Time.deltaTime);
