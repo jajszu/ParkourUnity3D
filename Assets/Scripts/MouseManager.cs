@@ -20,10 +20,11 @@ public class MouseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.player)
+        if (!GameManager.instance.player|| GameManager.instance.player.isTicTac)
         {
             return;
         }
+       
         float mouseX = Input.GetAxis("Mouse X") * mouseSensivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensivity * Time.deltaTime;
 

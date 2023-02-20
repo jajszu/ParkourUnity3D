@@ -11,6 +11,7 @@ public class Player : Fighter
     public float wallRunGravity = -10f;
     public float jumpHeigh = 3f;
     public float groundDistance = 0.4f;
+    public int maxTicTacJumps = 2;
 
     [SerializeField] 
     private Transform groundCheck;
@@ -18,6 +19,8 @@ public class Player : Fighter
     private Transform wallLeftCheck;
     [SerializeField] 
     private Transform wallRightCheck;
+    [SerializeField]
+    private Transform wallFrontCheck;
     [SerializeField] 
     private LayerMask groundMask;
     [SerializeField]
@@ -30,15 +33,55 @@ public class Player : Fighter
     private bool isWallLeft;
     [SerializeField]
     private bool isWallRight;
+    [SerializeField]
+    private bool isWallFront;
     public bool isWallRunning;
+    public bool isTicTac = false;
     Vector3 velocity;
 
     private float inputX;
     private float inputY;
+    private int ticTacJumps = 0;
+    private float ticTacAngle = 0;
     private void Awake()
     {
         controller= GetComponent<CharacterController>();
     }
+
+    private void Jump(float grav)
+    {
+
+            velocity.y = Mathf.Sqrt(jumpHeigh * -2f * grav);
+        
+    }
+
+
+    private void TicTac()
+    {
+        isWallFront = Physics.CheckSphere(wallFrontCheck.position, 0.1f, wallMask);
+
+        if(!isGrounded && isWallFront && ticTacJumps < maxTicTacJumps && Input.GetButtonDown("Jump"))
+        {
+            isTicTac=true;
+           
+        }
+
+        if(isTicTac)
+        {
+            transform.Rotate(0, 500*Time.deltaTime, 0);
+            ticTacAngle += 500 * Time.deltaTime;
+            if(ticTacAngle >= 180)
+            {
+               
+                ticTacJumps++;
+                isTicTac = false;
+                ticTacAngle= 0;
+                Jump(gravity*2.5f);
+            }
+        }
+    }
+
+
 
     void Update()
     {
@@ -62,14 +105,14 @@ public class Player : Fighter
 
         if (isWallLeft && inputX<0)
         {
-            inputY = 1f;
+            inputY = 2f;
             velocity.y = -0.5f;
             zRotation= inputX;
             isWallRunning = true;
         }
         else if (isWallRight && inputX > 0)
         {
-            inputY = 1f;
+            inputY = 2f;
             velocity.y = -0.5f;
             zRotation = inputX;
             isWallRunning = true;
@@ -81,12 +124,12 @@ public class Player : Fighter
        
         Vector3 move = transform.right * inputX + transform.forward * inputY;
         controller.Move(move * speed * Time.deltaTime);
-
-        if(Input.GetButtonDown("Jump")&&isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeigh * -2f * gravity);
+            ticTacJumps = 0;
+            Jump(gravity);
         }
-
+        TicTac();
         var currentGravity = isWallRunning ? wallRunGravity: gravity;
         velocity.y += currentGravity * Time.deltaTime;
         Debug.Log(velocity.y);
