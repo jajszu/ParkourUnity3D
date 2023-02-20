@@ -50,10 +50,6 @@ public class Player : Fighter
         {
             velocity.y = -2f;
         }
-        
-
-        
-
 
        inputX = Input.GetAxisRaw("Horizontal");
        inputY = Input.GetAxisRaw("Vertical");
