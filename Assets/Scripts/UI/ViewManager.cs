@@ -8,7 +8,7 @@ public class ViewManager : MonoBehaviour
 
     [SerializeField] private View startingView;
     [SerializeField] private View[] views;
-
+    [SerializeField]
     private View currentView;
     private Stack<View> history = new Stack<View>();
 
