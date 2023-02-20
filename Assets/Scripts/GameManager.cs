@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public delegate void MyEventHandler();
-    public event MyEventHandler updateUI;
     public Player player;
 
     [HideInInspector]
@@ -32,17 +30,12 @@ public class GameManager : MonoBehaviour
         }
         //spawn gracza
         player = Instantiate(playerPrefab, playerSpawnPoint).GetComponent<Player>();
-        inGameView.UpdateUI(player.hp, player.maxHp);
 
         //domyœlnie jak przechodzimy do nowej sceny to wszystko co jest w poprzedniej scenie jest usuwane
         //dziêki tej funkcji game manager nie zostanie usuniêty
         DontDestroyOnLoad(gameObject);
     }
 
-    public void InvokeUpdateUI()
-    {
-        updateUI?.Invoke();
-    }
     public void GameOverScreen()
     {
         ViewManager.Show<GameOverView>(false);
