@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
-    private HealthBar healthBar;
+    private InGameView inGameView;
     void Awake()
     {
         //to sprawia ¿e gdyby by³ w scenie drugi game manager to zostanie usuniêty
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
         }
         //spawn gracza
         player = Instantiate(playerPrefab, playerSpawnPoint).GetComponent<Player>();
-        healthBar.UpdateUI(player.hp, player.maxHp);
+        inGameView.UpdateUI(player.hp, player.maxHp);
 
         //domyœlnie jak przechodzimy do nowej sceny to wszystko co jest w poprzedniej scenie jest usuwane
         //dziêki tej funkcji game manager nie zostanie usuniêty
@@ -43,10 +45,11 @@ public class GameManager : MonoBehaviour
     }
     public void GameOverScreen()
     {
-        //wyœwietlanie przycisku replay
+        ViewManager.Show<GameOverView>(false);
+        Cursor.lockState = CursorLockMode.Confined;
     }
     public void Replay()
     {
-        //zaczynanie gry od nowa
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }
