@@ -136,7 +136,7 @@ public class Player : Fighter
     public override void RecieveDamage(int amount)
     {
         base.RecieveDamage(amount);
-        GameManager.instance.InvokeUpdateUI();
+        ViewManager.GetView<InGameView>().UpdateUI(hp, maxHp);
     }
     protected override void Death()
     {
