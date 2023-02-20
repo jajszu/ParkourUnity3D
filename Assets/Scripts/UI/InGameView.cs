@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class InGameView : View
 {
+    [SerializeField]
     private Slider slider;
 
-    private void Awake()
-    {
-        slider = GetComponent<Slider>();
-
-    }
     void Start()
     {
         GameManager.instance.updateUI += UpdateUI;
@@ -34,5 +30,10 @@ public class HealthBar : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.instance.updateUI -= UpdateUI;
+    }
+
+    public override void Initialize()
+    {
+        
     }
 }
