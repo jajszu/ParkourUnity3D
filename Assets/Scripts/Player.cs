@@ -60,46 +60,19 @@ public class Player : Fighter
     }
 
 
-    private void TicTac()
-    {
-        isWallFront = Physics.CheckSphere(wallFrontCheck.position, 0.1f, wallMask);
-
-        if(!isGrounded && isWallFront && ticTacJumps < maxTicTacJumps && Input.GetButtonDown("Jump"))
-        {
-            isTicTac=true;
-           
-        }
-
-        if(isTicTac)
-        {
-            transform.Rotate(0, 500*Time.deltaTime, 0);
-            ticTacAngle += 500 * Time.deltaTime;
-            if(ticTacAngle >= 180)
-            {
-               
-                ticTacJumps++;
-                isTicTac = false;
-                ticTacAngle= 0;
-                Jump(gravity*2.5f);
-            }
-        }
-    }
 
 
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        isWallLeft = Physics.CheckSphere(wallLeftCheck.position, 0.1f, wallMask);
-        isWallRight = Physics.CheckSphere(wallRightCheck.position, 0.1f, wallMask);
+        GatherInput();
+
+        CheckWalls();
 
         if(isGrounded&&velocity.y< 0)
         {
             velocity.y = -2f;
         }
-
-       inputX = Input.GetAxisRaw("Horizontal");
-       inputY = Input.GetAxisRaw("Vertical");
 
         zRotation = 0f;
 
@@ -124,17 +97,56 @@ public class Player : Fighter
        
         Vector3 move = transform.right * inputX + transform.forward * inputY;
         controller.Move(move * speed * Time.deltaTime);
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             ticTacJumps = 0;
             Jump(gravity);
         }
         TicTac();
-        var currentGravity = isWallRunning ? wallRunGravity: gravity;
-        velocity.y += currentGravity * Time.deltaTime;
+        CalculateGravity();
+    }
+    private void GatherInput()
+    {
+        inputX = Input.GetAxisRaw("Horizontal");
+        inputY = Input.GetAxisRaw("Vertical");
+    }
+    private void CheckWalls()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isWallLeft = Physics.CheckSphere(wallLeftCheck.position, 0.1f, wallMask);
+        isWallRight = Physics.CheckSphere(wallRightCheck.position, 0.1f, wallMask);
+        isWallFront = Physics.CheckSphere(wallFrontCheck.position, 0.1f, wallMask);
+    }
+    private void TicTac()
+    {
+        if(!isGrounded && isWallFront && ticTacJumps < maxTicTacJumps && Input.GetButtonDown("Jump"))
+        {
+            isTicTac=true;
+           
+        }
 
+        if(isTicTac)
+        {
+            transform.Rotate(0, 500*Time.deltaTime, 0);
+            ticTacAngle += 500 * Time.deltaTime;
+            if(ticTacAngle >= 180)
+            {
+               
+                ticTacJumps++;
+                isTicTac = false;
+                ticTacAngle= 0;
+                Jump(gravity*2.5f);
+            }
+        }
+    }
+    private void CalculateGravity()
+    {
+        var currentGravity = isWallRunning ? wallRunGravity : gravity;
+        velocity.y += currentGravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
 
     public override void RecieveDamage(int amount)
     {
