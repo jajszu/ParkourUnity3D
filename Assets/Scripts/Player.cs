@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : Fighter
 {
-    public float speed = 12f;
+    protected new float speed = 12f;
     public float gravity = -20f;
     public float wallRunGravity = -10f;
     public float jumpHeigh = 3f;
@@ -17,12 +17,6 @@ public class Player : Fighter
     private Transform wallRightCheck;
     [SerializeField]
     private Transform wallFrontCheck;
-    [SerializeField] 
-    private LayerMask groundMask;
-    [SerializeField]
-    private LayerMask wallMask;
-    private float zRotation;
-    private CharacterController controller;
 
     private bool isGrounded;
     [SerializeField]
@@ -31,14 +25,25 @@ public class Player : Fighter
     private bool isWallRight;
     [SerializeField]
     private bool isWallFront;
+
+    [SerializeField] 
+    private LayerMask groundMask;
+    [SerializeField]
+    private LayerMask wallMask;
+
+    private float zRotation;
+    private CharacterController controller;
+
     public bool isWallRunning;
     public bool isTicTac = false;
-    Vector3 velocity;
 
     private float inputX;
     private float inputY;
+    private Vector3 velocity;
+
     private int ticTacJumps = 0;
     private float ticTacAngle = 0;
+
     private void Awake()
     {
         controller= GetComponent<CharacterController>();
@@ -51,16 +56,6 @@ public class Player : Fighter
             GameManager.instance.player = this;
         }
     }
-
-    private void Jump(float grav)
-    {
-
-            velocity.y = Mathf.Sqrt(jumpHeigh * -2f * grav);
-        
-    }
-
-
-
 
 
     void Update()
@@ -117,6 +112,12 @@ public class Player : Fighter
         isWallLeft = Physics.CheckSphere(wallLeftCheck.position, 0.1f, wallMask);
         isWallRight = Physics.CheckSphere(wallRightCheck.position, 0.1f, wallMask);
         isWallFront = Physics.CheckSphere(wallFrontCheck.position, 0.1f, wallMask);
+    }
+    private void Jump(float grav)
+    {
+
+            velocity.y = Mathf.Sqrt(jumpHeigh * -2f * grav);
+        
     }
     private void TicTac()
     {
