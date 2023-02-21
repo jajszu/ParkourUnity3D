@@ -47,6 +47,15 @@ public class Player : Fighter
     {
         controller= GetComponent<CharacterController>();
     }
+    private void OnEnable()
+    {
+        Debug.Log("player enable");
+        ViewManager.GetView<InGameView>().UpdateUI(hp, maxHp);
+        if(GameManager.instance.player!= null )
+        {
+            GameManager.instance.player = this;
+        }
+    }
 
     private void Jump(float grav)
     {
@@ -128,7 +137,6 @@ public class Player : Fighter
         TicTac();
         var currentGravity = isWallRunning ? wallRunGravity: gravity;
         velocity.y += currentGravity * Time.deltaTime;
-        Debug.Log(velocity.y);
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -142,6 +150,7 @@ public class Player : Fighter
     {
         Camera.main.transform.parent = null;
         base.Death();
+        GameManager.instance.state = GameState.GameOver;
         GameManager.instance.GameOverScreen();
     }
     public float GetZRot()

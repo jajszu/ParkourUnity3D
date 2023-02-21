@@ -20,7 +20,7 @@ public class MouseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.player|| GameManager.instance.player.isTicTac)
+        if(GameManager.instance.state != GameState.InGame)
         {
             return;
         }

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+public enum GameState
+{
+    InGame,
+    GameOver
+}
 public class GameManager : MonoBehaviour
 {
     public Player player;
+    public GameState state;
 
     [HideInInspector]
     public static GameManager instance;
@@ -30,6 +35,7 @@ public class GameManager : MonoBehaviour
         }
         //spawn gracza
         player = Instantiate(playerPrefab, playerSpawnPoint).GetComponent<Player>();
+        state = GameState.InGame;
 
         //domyœlnie jak przechodzimy do nowej sceny to wszystko co jest w poprzedniej scenie jest usuwane
         //dziêki tej funkcji game manager nie zostanie usuniêty
@@ -43,6 +49,8 @@ public class GameManager : MonoBehaviour
     }
     public void Replay()
     {
+        state= GameState.InGame;
+        ViewManager.Show<InGameView>(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }
