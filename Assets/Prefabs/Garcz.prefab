@@ -218,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7718378614589908049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.581, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -362,8 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   maxHp: 100
-  damage: 10
-  speed: 6
+  speed: 5
   gravity: -30
   wallRunGravity: -10
   jumpHeigh: 2
@@ -373,15 +372,15 @@ MonoBehaviour:
   wallLeftCheck: {fileID: 6973087972953192662}
   wallRightCheck: {fileID: 1236592041037567868}
   wallFrontCheck: {fileID: 3677785955830413906}
+  isWallLeft: 0
+  isWallRight: 0
+  isWallFront: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   wallMask:
     serializedVersion: 2
     m_Bits: 128
-  isWallLeft: 0
-  isWallRight: 0
-  isWallFront: 0
   isWallRunning: 0
   isTicTac: 0
 --- !u!1 &7757450093755945431
