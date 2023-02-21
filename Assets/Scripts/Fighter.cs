@@ -6,7 +6,7 @@ public abstract class Fighter : MonoBehaviour
 {
     public int hp = 100;
     public int maxHp = 100;
-    protected float speed;
+    [SerializeField]protected float speed;
 
     public virtual void RecieveDamage(int amount)
     {
