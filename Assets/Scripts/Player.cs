@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Player : Fighter
 {
-    protected new float speed = 12f;
     public float gravity = -20f;
     public float wallRunGravity = -10f;
     public float jumpHeigh = 3f;
