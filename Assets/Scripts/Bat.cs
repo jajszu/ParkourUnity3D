@@ -27,6 +27,7 @@ public class Bat : Enemy
         //CheckTimer();
         //CheckForObstacles();
         SetTargetRotation();
+        CheckPlayerDistance();
     }
     private void FixedUpdate()
     {
@@ -76,6 +77,15 @@ public class Bat : Enemy
     {
         return GameManager.instance.player.transform.position - transform.position;
     }
+    private void CheckPlayerDistance()
+    {
+        if(DistanceFromPlayer() < 0.1f)
+        {
+            GameManager.instance.player.RecieveDamage(damage);
+            Destroy(gameObject);
+        }
+    }
+
     private float DistanceFromPlayer()
     {
         var player = GameManager.instance.player.transform.position;
