@@ -47,6 +47,7 @@ public class Player : Fighter
     {
         Debug.Log("player enable");
         ViewManager.GetView<InGameView>().UpdateUI(hp, maxHp);
+        if(GameManager.instance.player = null )
         {
             GameManager.instance.player = this;
         }
