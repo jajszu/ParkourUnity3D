@@ -23,18 +23,20 @@ public class Bat : Enemy
     }
     private void Update()
     {
-        CheckTimer();
-        CheckForObstacles();
+        if(GameManager.instance.state != GameState.InGame) { return; }
+        //CheckTimer();
+        //CheckForObstacles();
         SetTargetRotation();
     }
     private void FixedUpdate()
     {
         MoveForward();
         Rotate();
+        SetDirection();
     }
     private void MoveForward()
     {
-        rb.MovePosition(direction.normalized * speed);
+        rb.MovePosition(transform.position + transform.forward * speed * Time.deltaTime);
     }
     private void CheckForObstacles()
     {
@@ -57,19 +59,33 @@ public class Bat : Enemy
             direction = playerDirection;
         }
     }
+    private void SetDirection()
+    {
+        direction = DirectionToPlayer();
+    }
     private void SetTargetRotation()
     {
         targetRotation = Quaternion.LookRotation(direction, Vector3.up);
     }
     private void Rotate()
     {
+        if(targetRotation == Quaternion.identity) return; 
         rb.MoveRotation(targetRotation);
+    }
+    private Vector3 DirectionToPlayer()
+    {
+        return GameManager.instance.player.transform.position - transform.position;
+    }
+    private float DistanceFromPlayer()
+    {
+        var player = GameManager.instance.player.transform.position;
+        return Vector3.Distance(player, transform.position);
     }
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("collision");
-        if (collision.gameObject == GameManager.instance.player)
+        if (collision.tag == "Player")
         {
+            Debug.Log("hitting player");
             collision.transform.GetComponent<Player>().RecieveDamage(damage);
         }
     }
